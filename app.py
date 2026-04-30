@@ -6,7 +6,7 @@ st.set_page_config(page_title="實時庫存監控", page_icon="📊")
 
 # --- 這裡填入你發布到網路的 CSV 網址 ---
 # 記得要在 Google 試算表選：檔案 > 共用 > 發布到網路 > 選擇 CSV 格式
-CSV_URL = "你的_CSV_網址_填在這裡"
+CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTXmWR43c1djcpiFGXqBwFiKu_k92hQPNCaXWoui6HVWlmbM3iOcMRQ2tKmPK6QEuLYdTf8m42Ek7q2/pub?output=csv"
 
 # --- 這裡填入你的 Google 表單連結 ---
 FORM_URL = "你的_GOOGLE_表單連結_填在這裡"
