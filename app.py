@@ -1,34 +1,32 @@
 import streamlit as st
-from st_files_connection import FilesConnection
 import pandas as pd
 
 st.set_page_config(page_title="雲端倉庫助手", layout="centered")
 
-# 這裡填入你的 Google Sheet 網址 (需公開編輯權限)
+# 這裡換成你剛才從「發布到網路」複製的 CSV 網址
 url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTXmWR43c1djcpiFGXqBwFiKu_k92hQPNCaXWoui6HVWlmbM3iOcMRQ2tKmPK6QEuLYdTf8m42Ek7q2/pubhtml"
 
 def load_data():
-    # 讀取雲端資料
-    return pd.read_csv(url.replace('/edit?usp=sharing', '/export?format=csv'))
+    # 加上一個 random 參數是為了防止網頁快取舊資料
+    return pd.read_csv(f"{url}&refresh={pd.Timestamp.now().timestamp()}")
 
 st.title("📱 雲端即時倉庫管理")
 
 try:
     df = load_data()
+    # 確保欄位名稱沒有空格
+    df.columns = df.columns.str.strip()
     
-    # 顯示目前庫存
     st.subheader("目前庫存狀況")
     st.dataframe(df, use_container_width=True, hide_index=True)
 
-    # 快速出入庫操作
     with st.form("update_form"):
-        selected_id = st.selectbox("選擇商品 ID", df['ID'].tolist())
-        mode = st.radio("操作類型", ["入庫 (+)", "出庫 (-)"], horizontal=True)
-        amount = st.number_input("數量", min_value=1, step=1)
-        submit = st.form_submit_button("提交更改")
-
-        if submit:
-            st.info("💡 提示：在網頁版直接修改 Google Sheets 需搭配 API，初步建議直接在手機打開 Google Sheets APP 修改最快，或透過 Streamlit 串接 API 實現全自動。")
+        # 這裡的 'ID' 必須跟你 Excel 第一欄的名字一模一樣
+        id_list = df['ID'].astype(str).tolist()
+        selected_id = st.selectbox("選擇商品 ID", id_list)
+        st.info("💡 請直接在 Google Sheets APP 修改數量，網頁重新整理後會自動同步。")
+        st.form_submit_button("檢查更新")
             
 except Exception as e:
-    st.error("請確認 Google Sheet 網址正確且已開啟『知道連結的人皆可編輯』權限")
+    st.error(f"資料讀取失敗。錯誤訊息: {e}")
+    st.write("請檢查 Google 試算表第一列是否為: ID, Name, Quantity")
