@@ -5,7 +5,7 @@ import pandas as pd
 st.set_page_config(page_title="雲端倉庫助手", layout="centered")
 
 # 這裡填入你的 Google Sheet 網址 (需公開編輯權限)
-url = "你的_GOOGLE_SHEET_完整網址"
+url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTXmWR43c1djcpiFGXqBwFiKu_k92hQPNCaXWoui6HVWlmbM3iOcMRQ2tKmPK6QEuLYdTf8m42Ek7q2/pubhtml"
 
 def load_data():
     # 讀取雲端資料
