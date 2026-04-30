@@ -4,7 +4,7 @@ import pandas as pd
 st.set_page_config(page_title="雲端倉庫助手", layout="centered")
 
 # 這裡換成你剛才從「發布到網路」複製的 CSV 網址
-url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTXmWR43c1djcpiFGXqBwFiKu_k92hQPNCaXWoui6HVWlmbM3iOcMRQ2tKmPK6QEuLYdTf8m42Ek7q2/pubhtml"
+url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTXmWR43c1djcpiFGXqBwFiKu_k92hQPNCaXWoui6HVWlmbM3iOcMRQ2tKmPK6QEuLYdTf8m42Ek7q2/pub?output=csv"
 
 def load_data():
     # 加上一個 random 參數是為了防止網頁快取舊資料
